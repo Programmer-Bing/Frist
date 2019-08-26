@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.dao.StudentMapper">
+	
+	
+	<select id="findAll" resultType="student" >
+	select * from student
+
+	</select>
+	
+	<update id="updateStudent" parameterType="student">
+	update student set sname=#{sname} where sid=#{sid}
+	
+	</update>
+
+</mapper>

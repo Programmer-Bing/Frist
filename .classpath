@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/apsectj"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/spring-mybatis"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/spring"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/mybatis"/>
+	<classpathentry kind="src" path="config2"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="D:/1820754092/FileRecv/SpringLG1403/mysql-connector-java-5.1.13-bin.jar"/>
+	<classpathentry kind="lib" path="D:/1820754092/FileRecv/SpringLG1403/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="mysql-connector-java-5.1.13-bin.jar"/>
+	<classpathentry kind="lib" path="ojdbc6.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

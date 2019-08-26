@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+<!--扫描spring组件  -->
+<context:component-scan base-package="com.cssl"/>
+
+<!--引入数据库参数文件  -->
+<context:property-placeholder location="classpath:mysqldb.properties"/> 
+
+<!--配置数据源  -->
+
+<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="${jdbc.driver}"></property>
+	<property name="url" value="${jdbc.url}"></property>
+	<property name="username" value="${jdbc.username}"></property>
+	<property name="password" value="${jdbc.password}"></property>
+</bean>
+
+<!--配置sqlSessionFactory  -->      
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!--引入数据源  -->
+	<property name="dataSource" ref="dataSource"/>
+	<!--引入mybatis-config.xml  -->
+	<property name="configLocation" value="classpath:mybatis-config.xml"/>
+	<!--别名  -->
+	<property name="typeAliasesPackage" value="com.cssl.pojo"/>
+	<!--studentMapper.xml  -->
+	<!-- <property name="mapperLocations">
+		<list>
+			<value>com/cssl/dao/StudentMapper.xml</value>
+		</list>
+	</property> -->
+</bean>
+
+	<!--根据接口路径扫描所在接口产生的代理对象  -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.cssl.dao"></property>
+	</bean>
+	
+	<!-- <bean id="studao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.cssl.dao.StudentMapper" ></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean> -->
+
+	<!--声明式事务  -->
+	
+	<!--事务管理器  -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!--依赖数据源  -->
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	
+	<!--事务增强  -->
+	<!-- <tx:advice id="txAdvice" transaction-manager="txManager"> -->
+		<!-- <tx:attributes> -->
+			<!--find*:拦截find开头的方法：timeout="-1"：事务永远不过时  -->
+			<!-- <tx:method name="find*" timeout="-1" read-only="true"/> -->
+			<!--
+			isolation="DEFAULT":根据不同数据库，各自隔离
+			propagation="REQUIRED":事务的传播机制（行为）
+			//默认运行时异常会自动回滚
+			no-rollback-for="java.lang.ArithmeticException"：遇到指定异常不回滚
+			rollback-for="java.sql.SQLException"
+			  -->
+			
+			<!-- <tx:method name="update*"
+			isolation="DEFAULT"
+			propagation="REQUIRED"
+			
+			no-rollback-for="java.sql.SQLException"
+			/> 
+			<tx:method name="*" read-only="false" propagation="REQUIRED"/>
+		</tx:attributes>
+	</tx:advice> -->
+	
+	<!--配置切面，将事务切到哪里  -->
+	<!-- <aop:config>
+		定义切点 
+		<aop:pointcut expression="execution(* com.cssl.service..*.*(..))" id="mypoint"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="mypoint"/>
+	</aop:config> -->
+	
+	<!--使用注解  -->
+	<tx:annotation-driven transaction-manager="txManager"/>
+</beans>

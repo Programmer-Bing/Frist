@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 设置mybatis的运行行为 -->
+	<settings>
+
+		<!--日志的实现 -->
+
+
+		<setting value="LOG4J" name="logImpl" />
+
+		<!-- 设置主键自增 -->
+
+
+		<setting value="true" name="useGeneratedKeys" />
+
+		<!--自动映射 -->
+
+
+		<setting value="FULL" name="autoMappingBehavior" />
+
+	</settings>
+</configuration>
+
+
+
